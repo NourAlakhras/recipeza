@@ -1,35 +1,25 @@
-//import { useState } from "react";
-
+import React from "react";
 import "./App.css";
-
+import HomeNavbar from "./components/Navbar";
+import CardContainer from "./components/Card";
+import AddButton from "./components/addButton";
+//import LoginUi from "./screens/LoginUi";
 function App() {
-  const navbarStyle = {
-    display: "flex",
-    alignItems: "top",
-    justifyContent: "space-between",
-  };
   return (
-    <>
-      <nav style={navbarStyle}>
-        <div className="logo">
-          <img
-            src="src\\assets\\web-logo.png"
-            alt="Recipeza Logo"
-            width={180}
-          />
-        </div>
-        <div className="search-bar">
-          <input type="search" placeholder="Search..." />
-          <button>Search</button>
-        </div>
-        <div className="signup">
-          <button>Sign Up</button>
-        </div>
-      </nav>
+    <React.Fragment>
       <div>
-        <h1>kjhgg</h1>
+         <HomeNavbar />  
       </div>
-    </>
+      <div>
+        <AddButton />
+      </div>
+      <div>
+        <CardContainer />
+      </div> 
+      {/* <LoginUi /> */}
+     
+     
+    </React.Fragment>
   );
 }
 
