@@ -12,6 +12,7 @@ function AddButton() {
   const [ingredientQuantity, setIngredientQuantity] = useState("");
   const [ingredientUnit, setIngredientUnit] = useState("");
   const [recipePhoto, setRecipePhoto] = useState(null);
+  const [recipeInstructions, setRecipeInstructions] = useState("");
 
   const handleShowModal = () => {
     setShowModal(true);
@@ -45,10 +46,10 @@ function AddButton() {
   };
   const handleAddRecipe = () => {
     const reader = new FileReader();
-
+  
     // Read the uploaded image file
     reader.readAsDataURL(recipePhoto);
-
+  
     // When the file is loaded, convert it to base64 and send it to the server
     reader.onloadend = () => {
       const base64Image = reader.result;
@@ -56,8 +57,9 @@ function AddButton() {
         name: recipeName,
         ingredients: ingredients,
         photo: base64Image,
+        instructions: recipeInstructions, // Include the recipe instructions
       };
-
+  
       // Send the new recipe data to the server
       axios
         .post("http://localhost:8000/recipes", newRecipe)
@@ -71,7 +73,7 @@ function AddButton() {
           console.error("Failed to add recipe:", error);
           // ...
         });
-
+  
       handleCloseModal();
     };
   };
@@ -139,6 +141,12 @@ function AddButton() {
               <button onClick={handleAddIngredient}>Add Ingredient</button>
             </div>
           </div>
+
+          <label>Recipe Instructions:</label>
+          <input
+            value={recipeInstructions}
+            onChange={(e) => setRecipeInstructions(e.target.value)}
+          />
 
           {/* Recipe Image */}
           <div>
