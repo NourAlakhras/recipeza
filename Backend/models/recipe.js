@@ -18,10 +18,12 @@ const recipeSchema = new mongoose.Schema({
         quantity: { type: Number, min: 0 },
         unit: { type: String, trim: true },
     }],
-    image: [{
-        data: { type: String, required: true }, // assuming you store base64-encoded image data as a string
-        contentType: { type: String, required: true },
-    }],
+    images: [
+        {
+            data: { type: String, required: true }, // base64-encoded image data as a string
+            contentType: { type: String, required: true },
+        },
+    ],
 }, { timestamps: true });
 
 const Recipe = mongoose.model("Recipe", recipeSchema);
