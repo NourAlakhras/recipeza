@@ -1,11 +1,12 @@
 import "bootstrap/dist/css/bootstrap.min.css";
-import Button from "react-bootstrap/Button";
 import Container from "react-bootstrap/Container";
-import Form from "react-bootstrap/Form";
-import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
-import "../styles/main.css";
+import "/src/App.css";
 import { BsSearch } from 'react-icons/bs';
+import "../styles/card.css";
+import { Link } from "react-router-dom/cjs/react-router-dom";
+
+
 
 
 function HomeNavbar() {
@@ -15,23 +16,20 @@ function HomeNavbar() {
         <header className="header-image">
           <Navbar className="navbar-transparent">
             <Container>
-              <Navbar.Brand href="#">
-                <img src="src/assets/web-logo.png" width="150" alt="Logo" />
+              <Navbar.Brand >
+               <Link to="/"> <img src="src/assets/web-logo.png" width="160" alt="Logo" /></Link>
               </Navbar.Brand>
-              <Form className="d-flex flex-grow-1 justify-content-center">
-                <Form.Control
-                  type="search"
-                  placeholder="Search"
-                  className="rounded-pill me-2"
-                  aria-label="Search"
-                />
-                <Button variant="outline-secondary">
-                  <BsSearch />
-                </Button>
-              </Form>
-              <Nav>
-                <Button variant="primary">Login</Button>
-              </Nav>
+              <form>
+        <input type="text" name="" placeholder="Search..." />
+        <button type="submit" className="searchButton"><BsSearch /></button>
+      </form>
+              <div>
+                <Link to="/login">
+                    <button className="btn btn-primary glitter-btn">
+                  Login/Signup
+                </button>
+                </Link>
+              </div>
             </Container>
           </Navbar>
         </header>
