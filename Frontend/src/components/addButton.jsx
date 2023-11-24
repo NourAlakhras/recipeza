@@ -60,22 +60,15 @@ function AddButton() {
         instructions: recipeInstructions, // Include the recipe instructions
       };
   
-      // Send the new recipe data to the server
-      axios
-        .post("http://localhost:8000/recipes", newRecipe)
-        .then((response) => {
-          // Handle successful response from the server
-          console.log("Recipe added successfully!", response);
-          // ...
-        })
-        .catch((error) => {
-          // Handle error response from the server
-          console.error("Failed to add recipe:", error);
-          // ...
-        });
-  
-      handleCloseModal();
-    };
+    fetch("http://localhost:3000/recipes", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(recipe),
+    }).then(() => {
+      console.log("new recipe added");
+    });
+
+    handleCloseModal();
   };
 
   return (
