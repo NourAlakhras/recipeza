@@ -1,18 +1,30 @@
-.cardsContainer{
-  display: flex;
+
+body {
+    background-color: #f0f1f4;
+
   justify-content: center;
   align-items: center;
+}
+.cardsContainer {
+  display: flex;
   margin-top: 20px;
-  border: 1px solid #ccc;
-  max-width: 70%;
+  margin-bottom: 50px;
+  border: 1px solid #b12222;
+  margin: 0 80px;
+  justify-content: space-between;
+  
+
 }
 .custom-card {
-  border: 1px solid #ccc;
-  border-radius: 0;
+  border-radius: 6px;
   padding: 0;
   background-color: #fff;
-  width: 250px;
+  max-width:350px;
   height: fit-content;
+  justify-content: space-around;
+  margin: 10px;
+  margin-top: 40px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
 }
 
 .card-title {
@@ -23,4 +35,87 @@
 .card-text {
   font-size: 14px;
   color: #888;
+}
+
+.image{
+  border-radius: 6px;
+  max-width: 80%;
+  margin: -20px auto 10px;
+  transition: filter 0.3s ease-in-out;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+.custom-card:hover .image {
+  filter: brightness(120%);
+}
+
+.glitter-btn {
+  position: relative;
+  overflow: hidden;
+  margin: 16px;
+  background-color: #b12222;
+  border: none;
+  
+}
+
+.glitter-btn:hover {
+ background-color:#c0bebe;
+  
+  
+}
+.glitter-btn:before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  
+  
+}
+
+.glitter-btn:hover:before {
+  opacity: 1;
+  background: linear-gradient(
+    to right,
+    rgba(255, 255, 255, 0) 0%,
+    rgba(255, 255, 255, 0.8) 50%,
+    rgba(255, 255, 255, 0) 100%
+  );
+  transform: rotate(-30deg);
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.3s ease-in-out;
+  animation: glitter 3s infinite;
+}
+
+@keyframes glitter {
+  0% {
+    transform: rotate(-30deg) translateX(-150%);
+    opacity: 0;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    transform: rotate(-30deg) translateX(150%);
+    opacity: 0;
+  }
+}
+
+.custom-card .glitter-btn {
+  width: 170px; /* Adjust the width as per your requirements */
+}
+
+.buttonAddingContainer{
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 30px;
+  margin-right: 120px;
+  
+}
+
+.add-icon {
+  vertical-align: middle;
+  margin-right: 5px;
 }
