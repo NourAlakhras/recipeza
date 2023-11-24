@@ -2,16 +2,18 @@ import { useState } from "react";
 import "../styles/card.css";
 import Modal from "react-bootstrap/Modal";
 import Button from "react-bootstrap/Button";
-import axios from "axios";
+//import axios from "axios";
 
 function AddButton() {
+  //modal
   const [showModal, setShowModal] = useState(false);
+  //data
   const [recipeName, setRecipeName] = useState("");
   const [ingredients, setIngredients] = useState([]);
   const [ingredientName, setIngredientName] = useState("");
   const [ingredientQuantity, setIngredientQuantity] = useState("");
   const [ingredientUnit, setIngredientUnit] = useState("");
-  const [recipePhoto, setRecipePhoto] = useState(null);
+  const [recipeImages, setRecipeImages] = useState(null);
   const [recipeInstructions, setRecipeInstructions] = useState("");
 
   const handleShowModal = () => {
@@ -42,24 +44,40 @@ function AddButton() {
 
   const handleImageChange = (event) => {
     const file = event.target.files[0];
-    setRecipePhoto(file);
+    setRecipeImages(file);
   };
-  const handleAddRecipe = () => {
-    const reader = new FileReader();
-  
-    // Read the uploaded image file
-    reader.readAsDataURL(recipePhoto);
-  
-    // When the file is loaded, convert it to base64 and send it to the server
-    reader.onloadend = () => {
-      const base64Image = reader.result;
-      const newRecipe = {
-        name: recipeName,
-        ingredients: ingredients,
-        photo: base64Image,
-        instructions: recipeInstructions, // Include the recipe instructions
-      };
-  
+
+  const handleAddRecipe = (e) => {
+    // const newRecipe = {
+    //   name: recipeName,
+    //   ingredients: ingredients,
+    //   instructions: recipeInstructions,
+    //   images: recipeImages,
+    // };
+
+    // // Send the new recipe data to the server
+    // axios
+    //   .post("http://localhost:3000/recipes", newRecipe)
+    //   .then((response) => {
+    //     // Handle successful response from the server
+    //     console.log("Recipe added successfully!", response);
+    //     // ...
+    //   })
+    //   .catch((error) => {
+    //     // Handle error response from the server
+    //     console.error("Failed to add recipe:", error);
+    //     // ...
+    //   });
+
+    e.preventDefault();
+
+    const recipe = {
+      recipeName,
+      ingredients,
+      recipeInstructions,
+      recipeImages,
+    };
+
     fetch("http://localhost:3000/recipes", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -70,6 +88,8 @@ function AddButton() {
 
     handleCloseModal();
   };
+
+  
 
   return (
     <>
@@ -143,7 +163,7 @@ function AddButton() {
 
           {/* Recipe Image */}
           <div>
-            <label>Recipe Photo:</label>
+            <label>Recipe Images:</label>
             <input type="file" accept="image/*" onChange={handleImageChange} />
           </div>
         </Modal.Body>

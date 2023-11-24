@@ -2,7 +2,7 @@ import App from "./App.jsx";
 import UserProfile from "./screens/UserProfile.jsx";
 import Login from "./screens/Login.jsx";
 import SignUp from "./screens/Signup.jsx";
-
+import RecipePage from "./screens/RecipePage.jsx";
 import {
   BrowserRouter as Router,
   Route,
@@ -25,6 +25,9 @@ function Index() {
           </Route>
           <Route path="/signup">
             <SignUp />
+          </Route>
+          <Route path="/recipe/:id">
+            <RecipePage />
           </Route>
         </Switch>
       </div>

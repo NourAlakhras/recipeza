@@ -13,7 +13,7 @@ function App() {
   useEffect(() => {
     setTimeout(() => {
       axios
-        .get("http://localhost:8000/recipes")
+        .get("http://localhost:3000/recipes")
         .then((response) => {
           setRecipes(response.data);
           setIsPending(false);
@@ -22,7 +22,7 @@ function App() {
         .catch((error) => {
           setIsPending(false);
           setError("Sorry, could not fetch the data for that resource :(");
-          console.log(error)
+          console.log(error);
         });
     }, 1000);
   }, []);

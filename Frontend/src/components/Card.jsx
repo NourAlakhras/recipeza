@@ -3,6 +3,7 @@ import Card from "react-bootstrap/Card";
 import Col from "react-bootstrap/Col";
 import Row from "react-bootstrap/Row";
 import "../styles/card.css";
+import { Link } from "react-router-dom/cjs/react-router-dom";
 
 function CardContainer ({ recipes }) {
   const [bookmarks, setBookmarks] = useState(Array.from({ length: 10 }, () => false));
@@ -65,9 +66,11 @@ function CardContainer ({ recipes }) {
                     </svg>
                   )}
                 </button>
+                <Link to={`/recipe/${recipe.id}`}>
                 <button className="btn btn-primary glitter-btn">
                   Open Recipe
                 </button>
+                </Link>
               </div>
             </Card>
           </Col>
@@ -75,6 +78,6 @@ function CardContainer ({ recipes }) {
       </Row>
     </div>
   );
-};
+}
 
 export default CardContainer;
