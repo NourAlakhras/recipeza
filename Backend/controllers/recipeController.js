@@ -5,12 +5,21 @@ const User = require('../models/user');
 // Create a new recipe and update user document
 const createRecipe = async (recipeData, userId) => {
     try {
+        // Encode images to base64
+        const encodedImages = recipeData.images.map((image) => {
+            const base64Data = image.data.toString('base64');
+            return {
+                data: base64Data,
+                contentType: image.contentType,
+            };
+        });
+
         // Create a new recipe
         const newRecipe = await Recipe.create({
             name: recipeData.name,
             instructions: recipeData.instructions,
             ingredients: recipeData.ingredients,
-            imageUrls: recipeData.imageUrls,
+            images: encodedImages,
         });
 
         // Update user document with the new recipe's ID
@@ -136,7 +145,7 @@ const getAddedRecipesByUser = async (userId) => {
     }
 };
 
-// Get all recipes added by a user
+// Get all recipes saved by a user
 const getSavedRecipesByUser = async (userId) => {
     try {
         const user = await User.findById(userId).populate({
