@@ -4,7 +4,7 @@ const userProfileController = require('../controllers/userProfileController');
 const authenticateUser = require('../middleware/authMiddleware');
 
 // Route to update user profile (excluding email) with an optional image upload
-router.put('/user-profile/:id', authenticateUser, async (req, res) => {
+router.put('/:id', authenticateUser, async (req, res) => {
     try {
         const userId = req.params.id;
         const { profilePicture, ...otherData } = req.body;
@@ -25,5 +25,23 @@ router.put('/user-profile/:id', authenticateUser, async (req, res) => {
         res.status(500).json({ error: 'Internal Server Error' });
     }
 });
+
+// Route to get a user by ID
+router.get('/:id', async (req, res) => {
+    try {
+        const userId = req.params.id;
+        const user = await userProfileController.getUserById(userId);
+
+        if (!user) {
+            return res.status(404).json({ error: 'User not found' });
+        }
+
+        res.json(recipe);
+    } catch (error) {
+        console.error('Error in getting a user by ID:', error);
+        res.status(500).json({ error: 'Internal Server Error' });
+    }
+});
+
 
 module.exports = router;

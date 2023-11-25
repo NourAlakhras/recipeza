@@ -1,90 +1,154 @@
-import { useState } from 'react'
-
-import '../styles/userProfile.css'
+import { Link } from "react-router-dom";
+import Navbar from "react-bootstrap/Navbar";
+import React, { useState, useEffect } from "react";
+import "../styles/userProfile.css";
+import Card from "react-bootstrap/Card";
+import Tab from "react-bootstrap/Tab";
+import Tabs from "react-bootstrap/Tabs";
+import "../styles/myTabs.css";
 
 function UserProfile() {
-  const [activeTab, setActiveTab] = useState('my-recipes');
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    if (token) {
+      const decodedToken = jwt_decode(token);
+      const userIdFromToken = decodedToken.userId;
 
-  const showTab = (tabId) => {
-    setActiveTab(tabId);
-  };
+      const fetchUserData = async () => {
+        try {
+          // Make a GET request to fetch user data using the user ID from the token
+          const response = await axios.get(`http://localhost:3000/user/${userIdFromToken}`);
+          setUser(response.data);
+        } catch (error) {
+          console.error('Error fetching user data:', error);
+        }
+      };
 
-  
+      fetchUserData();
+    }
+  }, []);
+
+  if (!user) {
+    // You might want to add a loading state or an error message here
+    return <div>Loading...</div>;
+  }
+
   return (
     <>
-   <div className='bodyContainer1'>
-   <h1> User Profile Page</h1>
-   </div>
-   
-   <div className="container">
-   <div className="profile-box">
-    <img src="src/assets/profile-user.png" alt="Profile Picture" className="profile-picture"/>
-    <div className="profile-name">Sarah</div>
-    <div className="profile-description"></div>
-    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-  </div>
-  <div className ="about-box">
-  <h2> About Me </h2>
-  <p> My cooking philosophy revolves around the simplicity of fresh, quality ingredients.
-     I believe that great meals start with the best components,
-     treated with respect and care. Whether  a comforting family dinner or an elaborate feast for friends,
-     each dish is an expression of creativity, flavor, and love.
-     </p>
-     </div>
-     </div>
-
-     <div className="division-line"></div>
-     <div className="App">
-      {/* Tabs */}
-      <div className="tabs">
-        <div
-          className={activeTab === 'my-recipes' ? 'active-tab' : ''}
-          onClick={() => showTab('my-recipes')}
-        >
-          My Recipes
-        </div>
-        <div
-          className={activeTab === 'saved-recipes' ? 'active-tab' : ''}
-          onClick={() => showTab('saved-recipes')}
-        >
-          Saved Recipes
-        </div>
-      </div>
-    
-      {/* Tab Content */}
-      <div className="tab-content" id="my-recipes" style={{ display: activeTab === 'my-recipes' ? 'flex' : 'none' }}>
-        
-        {/* Recipe Boxes for My Recipes */}
-        <div className="recipe-box">
-          <img src="src/assets/Recipe1.jpeg" alt="Recipe 1" className="recipe-picture" />
-          <h3>Red Macaroni</h3>
-          <p>This pasta creation is a perfect harmony of tangy tomato sauce, aromatic herbs,
-             and perfectly cooked macaroni.
-            </p>
-        </div>
-        <div className="recipe-box">
-          <img src="src/assets/Recipe2.png" alt="Recipe 2" className="recipe-picture" />
-          <h3>Fettucine</h3>
-          <p>This velvety and luscious pasta is coated in a silky smooth Alfredo sauce, 
-            rich with the perfect balance of butter, cream, and Parmesan cheese</p>
-        </div>
-        <div className="recipe-box">
-          <img src="src/assets/recipe3.png" alt="Recipe 3" className="recipe-picture" />
-          <h3>Recipe 3</h3>
-          <p>Description of Recipe 3.</p>
-        </div>
-        {/* Add more recipe boxes as needed */}
+      <div className="bodyContainer1">
+        <header className="headerDesign">
+          <Navbar className="navbar-transparent">
+            <Navbar.Brand>
+              <Link to="/">
+                <img src="src/assets/web-logo.png" width="140" alt="Logo" />
+              </Link>
+            </Navbar.Brand>
+          </Navbar>
+        </header>
       </div>
 
-      {/* Tab Content (Hidden initially) */}
-      <div className="tab-content" id="saved-recipes" style={{ display: activeTab === 'saved-recipes' ? 'flex' : 'none' }}>
-       
-        {/* Recipe Boxes for Saved Recipes */}
-        {/* Add saved recipe boxes as needed */}
+      <div className="container">
+        <Card style={{ width: "18rem", margin: "20px" }}>
+          <Card.Img
+            variant="top"
+            src="src/assets/profile-user-icon.jpg"
+            style={{ borderRadius: "50%" }}
+          />
+          <Card.Body>
+            <Card.Title style={{ color: "#B73E3E" }}>Name:{user.name}</Card.Title>
+            <Card.Text>
+              Email: {user.email}
+            </Card.Text>
+          </Card.Body>
+        </Card>
+        <div className="about-box">
+          <Tabs
+            defaultActiveKey="home"
+            id="uncontrolled-tab-example"
+            className="mb-3"
+          >
+            <Tab eventKey="home" title="My Recipes">
+              <div className="tab-content">
+                <Card
+                  style={{
+                    width: "250px",
+                    height: "fit-content",
+                    margin: "20px",
+                  }}
+                >
+                  <div
+                    style={{
+                      display: "flex",
+                      justifyContent: "center",
+                      alignItems: "center",
+                    }}
+                  >
+                    <Card.Img
+                      variant="top"
+                      src="src/assets/dish 4.jpg"
+                      style={{
+                        width: "200px",
+                        alignItems: "center",
+                        margin: "10px",
+                      }}
+                    />
+                  </div>
+                  <Card.Body>
+                    <Card.Title style={{ color: "#B73E3E" }}>
+                      Recipe Name
+                    </Card.Title>
+                    <Card.Text>
+                      Some quick example text to build on the card title and
+                      make up the bulk of the content.
+                    </Card.Text>
+                  </Card.Body>
+                  <Card.Footer>
+                    <div
+                      style={{
+                        display: "flex",
+                        flexDirection: "row",
+                        margin: "10px",
+                        justifyContent: "space-between",
+                      }}
+                    >
+                      <button
+                        style={{
+                          padding: "5px 10px",
+                          backgroundColor: "#B73E3E",
+                          color: "#FFFFFF",
+                          border: "none",
+                          borderRadius: "5px",
+                        }}
+                      >
+                        Edit
+                      </button>
+                      <div style={{ width: "10px" }}></div>{" "}
+                      {/* Space between buttons */}
+                      <button
+                        style={{
+                          padding: "5px 10px",
+                          backgroundColor: "#4A90E2",
+                          color: "#FFFFFF",
+                          border: "none",
+                          borderRadius: "5px",
+                        }}
+                      >
+                        Delete
+                      </button>
+                    </div>
+                  </Card.Footer>
+                </Card>
+              </div>
+            </Tab>
+            <Tab eventKey="profile" title="Saved Recipes">
+              <div className="tab-content">
+                {/* Tab content for Saved Recipes */}
+              </div>
+            </Tab>
+          </Tabs>
+        </div>
       </div>
-    </div>
-  
-         </>
+    </>
   );
-  }
+}
 export default UserProfile;

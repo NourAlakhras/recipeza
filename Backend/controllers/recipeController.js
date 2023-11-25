@@ -2,17 +2,22 @@
 const Recipe = require('../models/recipe');
 const User = require('../models/user'); 
 
-// Create a new recipe and update user document
 const createRecipe = async (recipeData, userId) => {
     try {
-        // Encode images to base64
-        const encodedImages = recipeData.images.map((image) => {
-            const base64Data = image.data.toString('base64');
-            return {
-                data: base64Data,
-                contentType: image.contentType,
-            };
-        });
+        console.log(recipeData)
+        let encodedImages = [];
+
+        // Check if images are provided
+        if (recipeData.images && Array.isArray(recipeData.images)) {
+            // Encode images to base64
+            encodedImages = recipeData.images.map((image) => {
+                const base64Data = image.data.toString('base64');
+                return {
+                    data: base64Data,
+                    contentType: image.contentType,
+                };
+            });
+        }
 
         // Create a new recipe
         const newRecipe = await Recipe.create({
@@ -35,6 +40,7 @@ const createRecipe = async (recipeData, userId) => {
         throw error;
     }
 };
+
 
 
 const saveRecipe = async (userId, recipeId) => {

@@ -20,10 +20,9 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(compression());
 
 
-
-
 // Connect to the database
 connectDB();
+
 
 
 

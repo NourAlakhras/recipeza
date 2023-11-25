@@ -17,6 +17,7 @@ function Index() {
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<SignUp />} />
           <Route path="/recipe/:id" element={<RecipePage />} />
+          <Route path="/UserProfile" element={<UserProfile />} />
         </Routes>
       </div>
     </Router>

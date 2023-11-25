@@ -2,19 +2,22 @@ import { useState } from "react";
 import "../styles/card.css";
 import Modal from "react-bootstrap/Modal";
 import Button from "react-bootstrap/Button";
-//import axios from "axios";
+import axios from "axios";
+import Cookies from "js-cookie"; // Import the Cookies library
+
+
 
 function AddButton() {
-  //modal
+  // modal
   const [showModal, setShowModal] = useState(false);
-  //data
-  const [recipeName, setRecipeName] = useState("");
+  // data
+  const [name, setRecipeName] = useState("");
   const [ingredients, setIngredients] = useState([]);
   const [ingredientName, setIngredientName] = useState("");
   const [ingredientQuantity, setIngredientQuantity] = useState("");
   const [ingredientUnit, setIngredientUnit] = useState("");
   const [recipeImages, setRecipeImages] = useState(null);
-  const [recipeInstructions, setRecipeInstructions] = useState("");
+  const [instructions, setRecipeInstructions] = useState("");
 
   const handleShowModal = () => {
     setShowModal(true);
@@ -47,57 +50,52 @@ function AddButton() {
     setRecipeImages(file);
   };
 
-  const handleAddRecipe = (e) => {
-    // const newRecipe = {
-    //   name: recipeName,
-    //   ingredients: ingredients,
-    //   instructions: recipeInstructions,
-    //   images: recipeImages,
-    // };
+const handleAddRecipe = async (e) => {
+  e.preventDefault();
 
-    // // Send the new recipe data to the server
-    // axios
-    //   .post("http://localhost:3000/recipes", newRecipe)
-    //   .then((response) => {
-    //     // Handle successful response from the server
-    //     console.log("Recipe added successfully!", response);
-    //     // ...
-    //   })
-    //   .catch((error) => {
-    //     // Handle error response from the server
-    //     console.error("Failed to add recipe:", error);
-    //     // ...
-    //   });
+  // Retrieve the token from localStorage
+  const token = localStorage.getItem('token');
+  console.log('Received Token:', token);
 
-    e.preventDefault();
+  if (!token) {
+    console.error('User not authenticated');
+    // Handle the case where the user is not authenticated, e.g., redirect to login
+    return;
+  }
 
-    const recipe = {
-      recipeName,
-      ingredients,
-      recipeInstructions,
-      recipeImages,
-    };
-
-    fetch("http://localhost:3000/recipes", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(recipe),
-    }).then(() => {
-      console.log("new recipe added");
-    });
-
-    handleCloseModal();
+  const recipe = {
+    name: name,
+    instructions: instructions,
+    ingredients: ingredients,
+    images: recipeImages,
   };
-
   
+
+  try {
+    const response = await axios.post("http://localhost:3000/recipes", recipe, {
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": `Bearer ${token}`, // Set the Authorization header with the token
+      },
+    });
+  
+    if (response.status === 201) {
+      console.log("New recipe added successfully");
+    } else {
+      console.error("Failed to add recipe:", response.data);
+    }
+  } catch (error) {
+    console.error("Error adding recipe:", error);
+  }
+  
+
+  handleCloseModal();
+};
 
   return (
     <>
       <div className="buttonAddingContainer">
-        <button
-          className="btn btn-primary glitter-btn"
-          onClick={handleShowModal}
-        >
+        <button className="btn btn-primary glitter-btn" onClick={handleShowModal}>
           <span className="add-icon">+</span>
           New Recipe
         </button>
@@ -112,7 +110,7 @@ function AddButton() {
           <label>Recipe Name:</label>
           <input
             type="text"
-            value={recipeName}
+            value={name}
             onChange={(e) => setRecipeName(e.target.value)}
           />
 
@@ -127,9 +125,7 @@ function AddButton() {
                 <input type="number" value={ingredient.quantity} readOnly />
                 <label>Ingredient Unit:</label>
                 <input type="text" value={ingredient.unit} readOnly />
-                <button onClick={() => handleRemoveIngredient(index)}>
-                  Remove
-                </button>
+                <button onClick={() => handleRemoveIngredient(index)}>Remove</button>
               </div>
             ))}
             <div>
@@ -157,7 +153,7 @@ function AddButton() {
 
           <label>Recipe Instructions:</label>
           <input
-            value={recipeInstructions}
+            value={instructions}
             onChange={(e) => setRecipeInstructions(e.target.value)}
           />
 

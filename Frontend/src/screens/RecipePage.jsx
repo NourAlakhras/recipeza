@@ -1,27 +1,29 @@
-import { useState, useEffect } from 'react';
-import axios from 'axios';
-import '../styles/RecipePage.css';
-import { useParams }  from "react-router-dom";
 
-const RecipePage = () => {
-  const { id } = useParams();
+
+// Frontend/src/components/RecipePage.jsx
+import React, { useState, useEffect } from "react";
+import axios from "axios";
+import { useParams } from 'react-router-dom'; // Import the useParams hook
+import '../styles/RecipePage.css';
+function RecipePage() {
   const [recipe, setRecipe] = useState(null);
+  const [error, setError] = useState(null);
+  const { id } = useParams(); // Use the useParams hook to get the 'id' parameter
 
   useEffect(() => {
-    const fetchRecipe = async () => {
-      try {
-        const response = await axios.get(`http://localhost:3000/recipes/${id}`);
+    axios
+      .get(`http://localhost:3000/recipes/${id}`)
+      .then((response) => {
         setRecipe(response.data);
-      } catch (error) {
-        console.error('Error fetching recipe:', error);
-      }
-    };
-
-    fetchRecipe();
+      })
+      .catch((error) => {
+        setError("Sorry, could not fetch the recipe for that resource :(");
+        console.log(error);
+      });
   }, [id]);
 
   if (!recipe) {
-    return <div>Loading...</div>;
+    return <div>{error || "Loading..."}</div>;
   }
 
   return (
@@ -55,50 +57,38 @@ Home
           src="./img/user.png"
           alt="User Icon"
         />
-        <div className="ingredient-name">
-          Added By: <a>@ChefJohn</a>
-        </div>
       </div>
     </div>
 
     <div id="ingredients-container">
       <div>
-        <div id="recipe-title">Spaghetti Aglio e Olio Recipe</div>
+        <div id="recipe-title">{recipe.name}</div>
         <div id="ingredients-title">Ingredients:</div>
       </div>
 
       <div className="ingredient">
         <div className="ingredient-name">
-          <ul>
-            {/* Ingredient list */}
-            <li>200g Spaghetti</li>
-            <li>3 cloves Garlic (thinly sliced)</li>
-            <li>3 tablespoons Olive Oil</li>
-            <li>Salt and Pepper to taste</li>
-            <li>200g cheese</li>
-          </ul>
+        <ul>
+                {recipe.ingredients.map((ingredient, index) => (
+                  <li key={index}>{ingredient.quantity} {ingredient.unit} {ingredient.name}</li>
+                ))}
+              </ul>
         </div>
       </div>
-      {/* Add more ingredients as needed */}
     </div>
   </div>
 
   <div id="recipe-steps">
     <h2>Recipe Steps</h2>
     <ol id="olSteps">
-      {/* Recipe steps list */}
-      <li>Cook the spaghetti according to the package instructions. Drain and set aside.</li>
-      <li>In a pan, heat olive oil over medium heat. Add sliced garlic and red pepper flakes.</li>
-      <li>Sauté until the garlic is golden but not browned.</li>
-      <li>Add the cooked spaghetti to the pan and toss to coat with the garlic-infused oil.</li>
-      <li>Season with salt and pepper to taste</li>
-      <li>Serve immediately and enjoy your delicious Spaghetti Aglio e Olio!</li>
-      {/* Add more steps as needed */}
+    {recipe.instructions.split('\n').map((step, index) => (
+            <li key={index}>{step}</li>
+          ))}
     </ol>
   </div>
 </div>
 );
 };
- 
+
 
 export default RecipePage;

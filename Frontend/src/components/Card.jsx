@@ -3,9 +3,9 @@ import Card from "react-bootstrap/Card";
 import Col from "react-bootstrap/Col";
 import Row from "react-bootstrap/Row";
 import "../styles/card.css";
-import { Link }  from "react-router-dom";
+import { Link } from "react-router-dom";
 
-function CardContainer ({ recipes }) {
+function CardContainer({ recipes }) {
   const [bookmarks, setBookmarks] = useState(Array.from({ length: 10 }, () => false));
 
   const toggleBookmark = (index) => {
@@ -66,10 +66,10 @@ function CardContainer ({ recipes }) {
                     </svg>
                   )}
                 </button>
-                <Link to={`/recipe/${recipe.id}`}>
-                <button className="btn btn-primary glitter-btn">
-                  Open Recipe
-                </button>
+                <Link to={`/recipe/${recipe._id}`}>
+                  <button className="btn btn-primary glitter-btn">
+                    Open Recipe
+                  </button>
                 </Link>
               </div>
             </Card>

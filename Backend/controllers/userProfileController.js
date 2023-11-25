@@ -32,7 +32,24 @@ const updateUserProfileWithPicture = async (userId, profilePicture, otherData) =
     }
 };
 
+
+
+
+const getUserById = async (userId) => {
+    try {
+        const user = await User.findById(userId)
+        .populate('savedRecipes', '-__v') // Exclude __v field from saved recipes
+        .populate('addedRecipes', '-__v'); // Exclude __v field from added recipes
+  
+        return user;
+    } catch (error) {
+        throw error;
+    }
+};
+
+
 module.exports = {
     updateUserProfile,
     updateUserProfileWithPicture,
+    getUserById,
 };

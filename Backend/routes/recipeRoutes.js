@@ -4,11 +4,15 @@ const recipeController = require('../controllers/recipeController');
 const router = express.Router();
 
 
-// Route to create a new recipe
 router.post('/', authenticateUser, async (req, res) => {
     try {
         const recipeData = req.body;
-        const userId = req.user._id; // Assuming the user ID is available in the request after authentication
+        const userId = req.user.userId; // Use req.user.userId instead of req.user._id
+        if (!userId) {
+            console.error('User ID is undefined.');
+            return res.status(401).json({ error: 'User not authenticated' });
+        }
+
         const newRecipe = await recipeController.createRecipe(recipeData, userId);
         res.status(201).json(newRecipe);
     } catch (error) {
@@ -16,6 +20,8 @@ router.post('/', authenticateUser, async (req, res) => {
         res.status(500).json({ error: 'Internal Server Error' });
     }
 });
+
+
 
 // Route to save a recipe
 router.post('/saveRecipe/:recipeId', authenticateUser, async (req, res) => {
