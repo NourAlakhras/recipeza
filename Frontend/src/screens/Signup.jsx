@@ -1,7 +1,8 @@
-import  { useState } from 'react';
+import { useState } from 'react';
 import { Form, Button } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUser, faEnvelope, faLock } from '@fortawesome/free-solid-svg-icons';
+import axios from 'axios';  // Import Axios
 import '../styles/Auth.css';
 
 const SignUp = () => {
@@ -11,12 +12,34 @@ const SignUp = () => {
     const [confirmedPassword, setConfirmedPassword] = useState('');
     const [validated, setValidated] = useState(false);
 
-    const handleSubmit = (event) => {
+    const handleSubmit = async (event) => {
         event.preventDefault();
         const form = event.currentTarget;
+
         if (form.checkValidity() === false) {
             event.stopPropagation();
+        } else {
+            try {
+                const response = await axios.post('http://localhost:3000/auth/signup', {
+                    name,
+                    email,
+                    password,
+                });
+            
+                if (response.status === 200) {
+                    const data = response.data;
+                    console.log('User created successfully:', data);
+                    // Optionally, you can redirect the user or perform other actions.
+                } else {
+                    console.error('Error creating user:', response);
+                    // Handle the error, show a message, etc.
+                }
+            } catch (error) {
+                console.error('Error creating user:', error);
+                // Handle the error, show a message, etc.
+            }
         }
+
         setValidated(true);
     };
 

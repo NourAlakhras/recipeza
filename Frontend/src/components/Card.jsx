@@ -3,7 +3,7 @@ import Card from "react-bootstrap/Card";
 import Col from "react-bootstrap/Col";
 import Row from "react-bootstrap/Row";
 import "../styles/card.css";
-import { Link } from "react-router-dom/cjs/react-router-dom";
+import { Link }  from "react-router-dom";
 
 function CardContainer ({ recipes }) {
   const [bookmarks, setBookmarks] = useState(Array.from({ length: 10 }, () => false));

@@ -3,33 +3,21 @@ import UserProfile from "./screens/UserProfile.jsx";
 import Login from "./screens/Login.jsx";
 import SignUp from "./screens/Signup.jsx";
 import RecipePage from "./screens/RecipePage.jsx";
-import {
-  BrowserRouter as Router,
-  Route,
-  Switch,
-} from "react-router-dom/cjs/react-router-dom.min.js";
+import { BrowserRouter as Router, Route,Routes } from 'react-router-dom';
 
+
+// Update your usage of Switch to Routes
 function Index() {
   return (
     <Router>
       <div className="Home">
-        <Switch>
-          <Route exact path="/">
-            <App />
-          </Route>
-          <Route path="/user-profile">
-            <UserProfile />
-          </Route>
-          <Route  path="/login">
-            <Login />
-          </Route>
-          <Route path="/signup">
-            <SignUp />
-          </Route>
-          <Route path="/recipe/:id">
-            <RecipePage />
-          </Route>
-        </Switch>
+        <Routes>
+          <Route path="/" element={<App />} />
+          <Route path="/user-profile" element={<UserProfile />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/signup" element={<SignUp />} />
+          <Route path="/recipe/:id" element={<RecipePage />} />
+        </Routes>
       </div>
     </Router>
   );

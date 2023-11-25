@@ -67,6 +67,16 @@ const getAllRecipes = async () => {
     }
 };
 
+
+const getRecipeById = async (recipeId) => {
+    try {
+        const recipe = await Recipe.findById(recipeId);
+        return recipe;
+    } catch (error) {
+        throw error;
+    }
+};
+
 // Search recipes by a keyword
 const searchRecipes = async (keyword) => {
     try {
@@ -175,5 +185,6 @@ module.exports = {
     deleteRecipeById,
     saveRecipe,
     getAddedRecipesByUser,
-    getSavedRecipesByUser
+    getSavedRecipesByUser,
+    getRecipeById
 };

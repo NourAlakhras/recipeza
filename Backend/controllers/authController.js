@@ -36,7 +36,6 @@ const postSignup = async (req, res) => {
 
 
 // Function to handle user login
-// Function to handle user login
 const postLogin = async (req, res) => {
     try {
         const { email, password } = req.body;

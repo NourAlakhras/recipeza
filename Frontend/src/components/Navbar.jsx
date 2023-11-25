@@ -4,7 +4,7 @@ import Navbar from "react-bootstrap/Navbar";
 import "/src/App.css";
 import { BsSearch } from 'react-icons/bs';
 import "../styles/card.css";
-import { Link } from "react-router-dom/cjs/react-router-dom";
+import { Link }  from "react-router-dom";
 
 
 

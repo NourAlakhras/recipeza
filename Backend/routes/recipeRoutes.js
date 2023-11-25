@@ -57,6 +57,23 @@ router.get('/search', async (req, res) => {
 
 
 
+// Route to get a recipe by ID
+router.get('/:id', async (req, res) => {
+    try {
+        const recipeId = req.params.id;
+        const recipe = await recipeController.getRecipeById(recipeId);
+
+        if (!recipe) {
+            return res.status(404).json({ error: 'Recipe not found' });
+        }
+
+        res.json(recipe);
+    } catch (error) {
+        console.error('Error in getting a recipe by ID:', error);
+        res.status(500).json({ error: 'Internal Server Error' });
+    }
+});
+
 // Route to update a recipe by ID
 router.put('/:id', authenticateUser, async (req, res) => {
     try {

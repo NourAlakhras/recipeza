@@ -3,7 +3,7 @@ import { Form, Button } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEnvelope, faLock } from '@fortawesome/free-solid-svg-icons';
 import '../styles/Auth.css';
-import { Link } from "react-router-dom/cjs/react-router-dom";
+import { Link }  from "react-router-dom";
 
 
 const Login = () => {
