@@ -1,0 +1,21 @@
+.container {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 30px;
+  }
+
+.add-button {
+    background-color: pink;
+    padding: 10px 20px;
+    border: 2px solid black;
+    color: white;
+    font-weight: bold;
+    border-radius: 5px;
+    margin: 20px;
+    border-radius:30px;
+  }
+
+  .add-icon {
+    vertical-align: middle;
+    margin-right: 5px;
+  }

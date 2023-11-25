@@ -1,0 +1,15 @@
+/* MyTabs.css */
+.nav-link {
+    color: #B73E3E; /* Change the color of the tab text */
+    background-color: #F2F2F2; /* Change the background color of the tabs */
+
+  }
+  
+  .nav-link.active {
+    background-color: #B73E3E; /* Change the background color of the active tab */
+    color: #FFFFFF; /* Change the color of the active tab text */
+  }
+
+  .tab-content {
+    background-color: transparent !important; /* Remove the background color inside the tab content area */
+  }

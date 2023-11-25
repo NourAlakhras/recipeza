@@ -1,0 +1,124 @@
+.bodyContainer1 {
+    background: linear-gradient(to right, pink 50%, white 50%);
+  
+  }
+  
+  
+  h1{
+    margin: 20px;
+      font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+      font-weight: lighter;
+      font-weight:bolder;
+      color: white;
+      font-size:40px;
+      letter-spacing: 3;
+      
+  }
+  .container {
+    display: flex;
+    max-width: 100%;
+    margin: 0;
+  }
+  
+  .profile-box {
+    margin:15px;
+    background-color: white;
+    border: 5px solid palevioletred;
+    padding: 20px;
+    width: 300px;
+    height: 400px;
+    text-align: center;
+  }
+  
+  .profile-picture {
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-bottom: 10px;
+  }
+  
+  .profile-name {
+    font-size: 2em;
+    font-weight: bold;
+    margin-bottom: 10px;
+    font-family: cursive;
+  }
+  
+  .profile-description {
+    font-size: 0.9em;
+    font-family: cursive;
+  }
+  
+  .about-box {
+    flex: 1; 
+    border: 5px;
+    font-size: 20px;
+    padding: 20px;
+    text-align: center;
+    font-family: cursive;
+  }
+  
+  
+  .division-line {
+    height: 2px;
+    background-color: palevioletred;
+     margin-top: 20px;
+  }
+  .App {
+    
+    font-family: cursive;
+    background: linear-gradient(to right, pink 50%, white 50%);
+    padding: 20px;
+   
+  }
+  
+  .tabs {
+  background-color: palevioletred;
+    display: flex;
+    justify-content: space-around;
+    color: black;
+    font-size: large;
+    font-weight: bolder;
+  }
+  
+  .tabs div {
+    cursor: pointer;
+    padding: 10px;
+    
+  }
+  
+  .active-tab {
+    background-color: white;
+  }
+  
+  .tab-content {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content:space-between;
+    
+  }
+  
+  .recipe-box {
+    border: 1px solid palevioletred;
+    padding: 15px;
+    width: calc(33.33% - 20px); 
+    margin: 15px 0;
+    text-align: center;
+    background-color: white;
+    box-sizing: border-box;
+   }
+  
+  .recipe-picture {
+    width: 100%;
+    height: 150px;
+    object-fit: cover;
+    margin-bottom: 10px;
+  }
+  
+  
+  
+  
+  
+  
+  
